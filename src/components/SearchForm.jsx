@@ -44,10 +44,29 @@ function SearchForm() {
     setLoadingCities(true);
 
     try {
+      console.time("Cities API");
+
       const data = await getCities(state);
-      setCities(Array.isArray(data) ? data : data.cities || []);
+
+      console.timeEnd("Cities API");
+      console.log("Cities API response:", data);
+
+      console.log("Cities API response:", data);
+
+      let cityList = [];
+
+      if (Array.isArray(data)) {
+        cityList = data;
+      } else if (Array.isArray(data.cities)) {
+        cityList = data.cities;
+      } else if (Array.isArray(data.data)) {
+        cityList = data.data;
+      }
+
+      setCities(cityList);
     } catch (err) {
-      setError("Unable to load cities.");
+      console.error("Cities API failed:", err);
+      setError("Unable to load cities. Please try again.");
     } finally {
       setLoadingCities(false);
     }
@@ -62,7 +81,7 @@ function SearchForm() {
     }
 
     navigate(
-      `/search?state=${encodeURIComponent(selectedState)}&city=${encodeURIComponent(selectedCity)}`
+      `/search?state=${encodeURIComponent(selectedState)}&city=${encodeURIComponent(selectedCity)}`,
     );
   };
 
@@ -118,21 +137,11 @@ function SearchForm() {
           tabIndex={selectedState ? 0 : -1}
           aria-label="Select city"
           aria-expanded={cityOpen}
-          aria-disabled={!selectedState}
           onClick={() => {
-            if (!selectedState || loadingCities) return;
-            setCityOpen(!cityOpen);
+            if (!selectedState) return;
+
+            setCityOpen(true);
             setStateOpen(false);
-          }}
-          onKeyDown={(e) => {
-            if (
-              (e.key === "Enter" || e.key === " ") &&
-              selectedState &&
-              !loadingCities
-            ) {
-              e.preventDefault();
-              setCityOpen(!cityOpen);
-            }
           }}
         >
           <span>
@@ -140,22 +149,27 @@ function SearchForm() {
               ? "Loading cities..."
               : selectedCity || "Select City"}
           </span>
+
           <span>⌄</span>
 
           {cityOpen && (
             <ul className="dropdown-options">
-              {cities.map((city) => (
-                <li
-                  key={city}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedCity(city);
-                    setCityOpen(false);
-                  }}
-                >
-                  {city}
-                </li>
-              ))}
+              {loadingCities ? (
+                <li>Loading cities...</li>
+              ) : (
+                cities.map((city) => (
+                  <li
+                    key={city}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedCity(city);
+                      setCityOpen(false);
+                    }}
+                  >
+                    {city}
+                  </li>
+                ))
+              )}
             </ul>
           )}
         </div>
