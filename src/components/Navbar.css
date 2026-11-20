@@ -1,0 +1,66 @@
+.top-banner {
+  background-color: #279ff3;
+  color: white;
+  text-align: center;
+  padding: 9px 12px;
+  font-size: 12px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background: white;
+  gap: 20px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #222;
+  font-size: 24px;
+}
+
+.logo span {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #263957;
+  font-size: 13px;
+}
+
+.nav-links a:hover {
+  color: #279ff3;
+}
+
+.nav-links .booking-link {
+  background: #279ff3;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .nav-links {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}

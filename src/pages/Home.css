@@ -1,0 +1,39 @@
+.hero {
+  background: linear-gradient(
+    135deg,
+    #eff6ff 0%,
+    #d8eaff 100%
+  );
+  padding: 70px 20px 90px;
+  text-align: center;
+}
+
+.hero-content {
+  margin-bottom: 35px;
+}
+
+.hero-content h1 {
+  font-size: clamp(30px, 4vw, 48px);
+  color: #1b3b6f;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  color: #56677e;
+  font-size: 16px;
+}
+
+.home-intro {
+  text-align: center;
+  padding: 70px 20px;
+}
+
+.home-intro h2 {
+  color: #1b3b6f;
+  font-size: 28px;
+}
+
+.home-intro p {
+  color: #777;
+  margin-top: 12px;
+}
